@@ -1,25 +1,45 @@
 const fixedfare = 0.21;
+var SubmitBtn = document.getElementById("submit-btn");
+SubmitBtn.addEventListener("click", traincalc);
 
 function traincalc() {
+    var name = document.getElementById("name").value;
     var distance = document.getElementById("distance").value;
-    var age = document.getElementById("age").value;
+    var agerange = document.getElementById("agerange").value;
+    var ticketElement = document.getElementById("ticket");
     var price;
     var total;
     var discount;
     price = distance * fixedfare;
-    if(age < 18) {
+    if(agerange === "un") {
         total = price - (price * 0.2);
-        discount = "Kids discount applied";
+        discount = "Under 18 ";
     }
-    else if (age > 65) {
+    else if (agerange === "ov") {
         total = price - (price * 0.4);
-        discount = "Over65 discount applied";
+        discount = "Over 65";
     }
     else{
         total = price;
-        discount = "No discount applied";
+        discount = "Adult";
     }
     total = total.toFixed(2);
-    document.getElementById("result").innerHTML = total;
-    document.getElementById("applied-disc").innerHTML = discount;
+
+    console.log(total);
+
+    var ticketNumber = Math.floor(Math.random()* 9000) + 1000;
+
+    ticketElement.style.display = "block";
+    var tbody = document.getElementById("result");
+    var row = tbody.insertRow(0);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+
+    
+    cell1.innerHTML = ticketNumber;
+    cell2.innerHTML = name;
+    cell3.innerHTML = discount;
+    cell4.innerHTML = "€ " + total;
 }
